@@ -11,7 +11,8 @@
 
 
 void help_print_(char *binaryfile){
-	printf(" -i<eg : eth0 ,wlan >0 or --interface to  print a available devices \n");
+	printf(" -l or --lookup to print a interface \n");
+	printf("-s or -sniffing to print a data on the fly in the internet connection");
 	printf("Usage : %s <option> //enter a arugument\n",binaryfile);
 }
 int main( int argc ,  char *argv[]){
