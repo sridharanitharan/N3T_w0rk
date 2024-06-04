@@ -1,6 +1,6 @@
 #ifndef DPT_H
 #define DPT_H
-
+//determina a packet type
 void dpt(u_char *argc , const struct pcap_pkthdr *handler , const u_char *packet){
   struct ether_header *eth_header;
   eth_header = (struct ether_header*)packet;
@@ -14,6 +14,7 @@ void dpt(u_char *argc , const struct pcap_pkthdr *handler , const u_char *packet
     printf("cannot determine packet ");
     }
 }
+  
   
 void determine_a_packet_type(){
       char *dev;

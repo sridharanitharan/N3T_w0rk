@@ -1,10 +1,5 @@
 #ifndef AVAILABLE_INTERFACE_H
 #define AVAILABLE_INTERFACE_H
-/*#include<string.h>
-#include<pcap.h>
-#include<arpa/inet.h>
-#include<stddef.h>
-#include<stdlib.h>*/
 
 void available_interface(){
 	char error[PCAP_ERRBUF_SIZE];
@@ -19,6 +14,7 @@ void available_interface(){
 	  }
 	}
 }
+
 /*int main(){
     available_interface();
     return 0;

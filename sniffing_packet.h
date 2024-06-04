@@ -1,5 +1,6 @@
 #ifndef SNIFFING_PACKET_H
 #define SNIFFING_PACKET_H
+//sniffing data
 #include<stdio.h>
 #include<pcap.h>
 #include<stdlib.h>
@@ -15,6 +16,7 @@ void packet_loop( u_char *argc , const struct  pcap_pkthdr *handle  , const u_ch
     char des[INET_ADDRSTRLEN];
     time_t t;
     time(&t);
+    
     
     // GET ETHER HEADER ;
     ether = (struct ether_header*)packet;

@@ -1,6 +1,7 @@
 #ifndef GIBN_H
 #define GIBN_H
 #include<stdlib.h>
+//ip //netmask
 int  get_info_about_network(char *device){
 	int lookup_return;
 	char error[PCAP_ERRBUF_SIZE];
@@ -10,6 +11,7 @@ int  get_info_about_network(char *device){
 	bpf_u_int32 mask_raw;
 	struct in_addr addr;
 	
+
 	lookup_return = pcap_lookupnet(device,&ip_raw,&mask_raw,error);
 	if(lookup_return == -1){
 		printf(" ERROR :  device is not found enter a correct device  \n");
