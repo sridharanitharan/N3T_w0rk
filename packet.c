@@ -6,8 +6,10 @@
 #include "ava_interface.h"
 #include "gian.h"
 #include "sniffing_packet.h"
+#include "dpt.h"
 #include<stddef.h>
 #include<stdlib.h>
+
 
 
 void help_print_(char *binaryfile){
@@ -37,7 +39,9 @@ int main( int argc ,  char *argv[]){
 		else{
 			help_print_(argv[0]);
 		}
-	}    
+	}else if(strcmp("-d",argv[1])==0 || strcmp("--dpt",argv[1])==0){
+	    determine_a_packet_type();
+	    }
 	else{
 	        printf("invalid arugument \n");
 		help_print_(argv[0]);	
