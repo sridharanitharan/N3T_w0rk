@@ -1,6 +1,5 @@
 #ifndef SNIFFING_PACKET_H
 #define SNIFFING_PACKET_H
-//sniffing data
 #include<stdio.h>
 #include<pcap.h>
 #include<stdlib.h>
@@ -9,6 +8,36 @@
 #include <ctype.h>
 #include <time.h>
 #include<netinet/ip.h>
+void printdata(const u_char *data,int len){
+int i;
+int gap;
+const u_char *ch;
+for(i=0;i<len;i++){
+  if(i%16 ==0){
+    printf("0x%04x : ",i);
+    }
+    printf("%02x ",data[i]);
+  
+  if((i%16 == 15) || i == len-1){
+      gap = 15 - (i%16);
+      if(gap){
+        printf("%*s",gap*3," ");
+        }
+      printf(" | ");
+      ch = data + (i - (i % 16));
+      for(int j = 0;j<16 -gap;j++){
+        if(isprint(ch[j])){
+          printf("%c",ch[j]);
+          }else{
+          printf(".");
+          }
+          }
+          printf("\n");
+          }
+        }
+    }
+        
+
 void packet_loop( u_char *argc , const struct  pcap_pkthdr *handle  , const u_char *packet){
     struct ether_header *ether;
     struct ip *ip_header;
@@ -16,7 +45,6 @@ void packet_loop( u_char *argc , const struct  pcap_pkthdr *handle  , const u_ch
     char des[INET_ADDRSTRLEN];
     time_t t;
     time(&t);
-    
     
     // GET ETHER HEADER ;
     ether = (struct ether_header*)packet;
@@ -35,6 +63,7 @@ void packet_loop( u_char *argc , const struct  pcap_pkthdr *handle  , const u_ch
       printf("Destination MAC %s\n",ether_ntoa((struct ether_addr*)ether->ether_dhost));
       printf("source ip %s \n",sor);
       printf("destination ip %s \n",des);
+      printdata(packet,handle->len);
       }else{
       printf("cannot open to read the packet \n");
     }
@@ -44,25 +73,24 @@ void packet_loop( u_char *argc , const struct  pcap_pkthdr *handle  , const u_ch
       
     
 int c_the_packet(){
-	pcap_t *open_d;
-	char error[PCAP_BUF_SIZE];
-	char *device;
-	device = pcap_lookupdev(error);
-	if(device == NULL){
-		printf("device is not found \n");
-	}
-	printf("device name is %s ", device);
-	open_d = pcap_open_live(device,BUFSIZ,1,1,error);
-	if(open_d == NULL){
-		printf("ERROR : CANNOT OPEN THE PCAKETS : %s " , error);
-		exit(-1);
-	}
-	pcap_loop(open_d,0,packet_loop,NULL);
-	
-	pcap_close(open_d);
-	return 0;
+ pcap_t *open_d;
+ char error[PCAP_BUF_SIZE];
+ char *device;
+ device = pcap_lookupdev(error);
+ if(device == NULL){
+  printf("device is not found \n");
+ }
+ printf("device name is %s ", device);
+ open_d = pcap_open_live(device,BUFSIZ,1,1,error);
+ if(open_d == NULL){
+  printf("ERROR : CANNOT OPEN THE PCAKETS : %s " , error);
+  exit(-1);
+ }
+ pcap_loop(open_d,0,packet_loop,NULL);
+ 
+ pcap_close(open_d);
+ return 0;
 }
 
 
-#endif 
-
+#endif

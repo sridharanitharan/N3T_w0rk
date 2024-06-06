@@ -13,9 +13,11 @@
 //version 1.0
 
 void help_print_(char *binaryfile){
-	printf(" -l or --lookup to print a interface \n");
-	printf("-s or -sniffing to print a data on the fly in the internet connection");
-	printf("Usage : %s <option> //enter a arugument\n",binaryfile);
+	printf("-l or --lookup to print a interface \n");
+	printf("-s or --sniffing to print a data on the fly in the internet connection\n");
+	printf("-r or --raw to print a ip address and netmask address \n");
+	printf("-d or --dpt determine a packet type [ip or arp or revarp]\n");
+	printf("Usage : %s <option> \n",binaryfile);
 }
 int main( int argc ,  char *argv[]){
 	char *device;
@@ -32,7 +34,7 @@ int main( int argc ,  char *argv[]){
 	      }
 	  }
 	else if(strcmp("-s",argv[1])==0 || strcmp("--sniffing",argv[1])==0){
-		printf("sniffing");
+		printf("sniffing......");
 		if(argc == 2){
 			c_the_packet();
 		}
